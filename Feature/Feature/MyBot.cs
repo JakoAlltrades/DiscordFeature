@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
-using Discord.Net;
-using Discord;
-
-
 namespace Feature
 {
-    public class Program
+     class MyBot
     {
-        public static void Main(string[] args)
+       DiscordClient discord;
+        public MyBot()
         {
-            MyBot myBot = new MyBot();
+            discord = new DiscordClient(x =>
+            {
+                x.LogLevel = 
+            });
         }
     }
 }
