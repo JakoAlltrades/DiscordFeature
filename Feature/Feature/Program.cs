@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using Discord;
 using Discord.Commands;
+=======
+using Discord.Net;
+using Discord;
+>>>>>>> origin/master
 
 namespace Feature
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             new Program().Start();
         }
