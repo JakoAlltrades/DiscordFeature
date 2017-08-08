@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D83380AF-ED1F-48FA-A5A2-95BCB8E9D2BB}</ProjectGuid>
+    <ProjectGuid>{CD66285A-58A2-4E02-ABC6-E96EE3CC9CAC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Feature</RootNamespace>
-    <AssemblyName>Feature</AssemblyName>
+    <RootNamespace>DiscordFeature</RootNamespace>
+    <AssemblyName>DiscordFeature</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -37,28 +37,12 @@
       <HintPath>..\packages\Discord.Net.0.9.6\lib\net45\Discord.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Discord.Net.Audio, Version=0.9.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Discord.Net.Audio.0.9.6\lib\net45\Discord.Net.Audio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Discord.Net.Commands, Version=0.9.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Discord.Net.Commands.0.9.6\lib\net45\Discord.Net.Commands.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Discord.Net.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Core.1.0.1\lib\net45\Discord.Net.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Discord.Net.Rest, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Rest.1.0.1\lib\net45\Discord.Net.Rest.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Discord.Net.Rpc, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Rpc.1.0.1\lib\net45\Discord.Net.Rpc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Discord.Net.Webhook, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Webhook.1.0.1\lib\netstandard1.1\Discord.Net.Webhook.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Discord.Net.WebSocket, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.WebSocket.1.0.1\lib\net45\Discord.Net.WebSocket.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -97,6 +81,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebSocket4Net, Version=0.14.1.0, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebSocket4Net.0.14.1\lib\net45\WebSocket4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyBot.cs" />

@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Discord;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Discord;
-using Discord.Commands;
-namespace Feature
+
+namespace DiscordFeature
 {
-     class MyBot
+    public class MyBot
     {
-       DiscordClient discord;
+        DiscordClient discord;
         public MyBot()
         {
             discord = new DiscordClient(x =>
