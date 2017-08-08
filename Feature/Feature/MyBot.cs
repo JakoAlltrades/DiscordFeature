@@ -14,7 +14,7 @@ namespace Feature
         {
             discord = new DiscordClient(x =>
             {
-                x.LogLevel = 
+                x.LogLevel = LogSeverity.Info;
             });
         }
     }
