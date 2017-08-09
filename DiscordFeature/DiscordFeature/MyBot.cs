@@ -16,7 +16,16 @@ namespace DiscordFeature
             discord = new DiscordClient(x =>
             {
                 x.LogLevel = LogSeverity.Info;
+                x.LogHandler = Log;
             });
+            discord.ExecuteAndWait(async () =>
+            {
+                await discord.Connect("MzQ0MTQzOTEyNDEzNDI5NzYx.DGtyIA.y_wBcXzuLsyMEk7utz5awPyz41Y", TokenType.Bot);
+            });
+        }
+        private void Log(object sender,LogMessageEventArgs e)
+        {
+            Console.WriteLine(e.Message);
         }
     }
 }
