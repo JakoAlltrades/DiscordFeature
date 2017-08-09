@@ -9,8 +9,6 @@ namespace BotLanguage
 {
     public class BotProcessor
     {
-        public class StateMachine
-        {
             List<string> enteredPhrase;
             List<string> modPhrase;
             Sentence sentence = null;
@@ -36,7 +34,7 @@ namespace BotLanguage
 
 
 
-            public StateMachine()
+            public BotProcessor()
             {
                 enteredPhrase = null;
                 modPhrase = null;
@@ -325,4 +323,3 @@ namespace BotLanguage
             }
         }
     }
-}
