@@ -20,6 +20,17 @@ namespace DiscordFeature
                 x.LogLevel = LogSeverity.Info;
                 x.LogHandler = Log;
             });
+            discord.UsingCommands(x =>
+            {
+                x.PrefixChar = 'J';
+                x.AllowMentionPrefix = true;
+            });
+            var commands = discord.GetService<CommandService>();
+            commands.CreateCommand("Slut")
+                .Do(async (e) =>
+                {
+                   await e.Channel.SendMessage("Suck it fagot");
+                });
             discord.ExecuteAndWait(async () =>
             {
                 await discord.Connect("MzQ0MTQzOTEyNDEzNDI5NzYx.DGtyIA.y_wBcXzuLsyMEk7utz5awPyz41Y", TokenType.Bot);
