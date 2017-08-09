@@ -25,7 +25,6 @@ namespace DiscordFeature
                 await discord.Connect("MzQ0MTQzOTEyNDEzNDI5NzYx.DGtyIA.y_wBcXzuLsyMEk7utz5awPyz41Y", TokenType.Bot);
             });
             
-           
         }
 
 
