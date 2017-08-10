@@ -31,6 +31,7 @@ namespace BotLanguage
                 SeekPrepositionOrVerb,
                 SeekArticleOrNull,
                 SeekVPNoun,
+                SeekVPNounOrAdjective,
                 SeekVPPrep
             }
 
@@ -281,6 +282,12 @@ namespace BotLanguage
                 {
                     state = new Noun();
                 }
+                else if(curState.Equals(states.SeekVPNounOrAdjective))
+                {
+                    runTimes = 2;
+                    checkList.Add(new Noun());
+                    checkList.Add(new Adjective());
+                }
                 else if (curState.Equals(states.SeekVPPrep))
                 {
                     state = new Preposition();
@@ -313,7 +320,7 @@ namespace BotLanguage
                         }
                         else if (curState.Equals(states.SeekArticleOrNull))
                         {
-                            curState = states.SeekVPNoun;
+                            curState = states.SeekVPNounOrAdjective;
                         }
                         else if (curState.Equals(states.SeekVPNoun))
                         {
@@ -379,6 +386,25 @@ namespace BotLanguage
                                 else if(state.GetType().Equals(new Adjective().GetType()))
                                 {
                                     curState = states.SeekNoun;
+                                }
+                            }
+                            else if(curState.Equals(states.SeekVPNounOrAdjective))
+                            {
+                                if(state.GetType().Equals(new Noun().GetType()))
+                                {
+                                    curState = states.SeekVPPrep;
+                                    if (curCount != wordCount - 1)
+                                    {
+                                        seekNPAfterPrep = true;
+                                    }
+                                    else
+                                    {
+                                        seekNPAfterVerb = false;
+                                    }
+                                }
+                                else if(state.GetType().Equals(new Adjective().GetType()))
+                                {
+                                    curState = states.SeekVPNoun;
                                 }
                             }
                         }
