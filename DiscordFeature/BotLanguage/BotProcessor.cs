@@ -9,11 +9,12 @@ namespace BotLanguage
 {
     public class BotProcessor
     {
-            List<string> enteredPhrase;
-            List<string> modPhrase;
-            Sentence sentence = null;
-            List<GrammarRule> stack = new List<GrammarRule>();
-            List<string> genPhrases = new List<string>();
+        List<string> enteredPhrase;
+        List<string> modPhrase;
+        Sentence sentence = null;
+        List<GrammarRule> stack = new List<GrammarRule>();
+        List<string> genPhrases = new List<string>();
+            List<string> previousPhrase = new List<string>();
             string returnPhrase = null;
             bool sentenceFound = false;
             Enum curState;
@@ -25,6 +26,7 @@ namespace BotLanguage
             enum states
             {
                 SeekArticle,
+                SeekNounOrAdjective,
                 SeekNoun,
                 SeekPrepositionOrVerb,
                 SeekArticleOrNull,
@@ -82,7 +84,7 @@ namespace BotLanguage
                 StartMachineProcess();
                 if (returnPhrase != null)
                 {
-                    //return the phrase to print in chat
+                    Console.WriteLine(returnPhrase);
                 }
             }
 
@@ -178,7 +180,7 @@ namespace BotLanguage
                 }
                 if (sentenceFound)
                 {
-                    returnPhrase = sentence.GenerateSenteance();
+                    returnPhrase = GenerateSenteance(sentence);
                 }
                 else
                 {
@@ -187,8 +189,40 @@ namespace BotLanguage
                 PrintReturnPhrase();
             }
 
+        private string GenerateSenteance(Sentence sentence)
+        {
+            List<GrammarRule> words = sentence.GenerateWords();
+            //Dictionary<string, int> WordTypeCount = sentence.GenerateWordCount(words);
+            string returnSentence = generateLeadingPhrase();
+            string wordsPassed = "";
+            int length = 0;
+            foreach (GrammarRule rule in words)
+            {
+                if (rule.GetType().Equals(new Verb().GetType()))
+                {
+                    wordsPassed += rule.word.Substring(0, rule.word.Length - 1) + " ";
+                }
+                else
+                {
+                    wordsPassed += rule.word + " ";
+                }
+                length = wordsPassed.Length;
+            }
+            wordsPassed = wordsPassed.Substring(0, length - 1);
+            wordsPassed += "?";
+            previousPhrase.Add(wordsPassed);
+            returnSentence += wordsPassed;
+            return returnSentence;
+        }
 
-            private void PrintReturnPhrase()
+        private string generateLeadingPhrase()
+        {
+            string[] leadPhrases = { "Who does ", "Where did ", "How did ", "When did " };
+            Random r = new Random();
+            return leadPhrases[r.Next(leadPhrases.Length)];
+        }
+
+        private void PrintReturnPhrase()
             {
                 string phrase = "";
                 if (returnPhrase != null)
@@ -212,6 +246,12 @@ namespace BotLanguage
                 if (curState.Equals(states.SeekArticle))
                 {
                     state = new Article();
+                }
+                else if(curState.Equals(states.SeekNounOrAdjective))
+                {
+                    runTimes = 2;
+                    checkList.Add(new Noun());
+                    checkList.Add(new Adjective());
                 }
                 else if (curState.Equals(states.SeekArticleOrNull))
                 {
@@ -243,7 +283,7 @@ namespace BotLanguage
                         stack.Add(state);
                         if (curState.Equals(states.SeekArticle))
                         {
-                            curState = states.SeekNoun;
+                            curState = states.SeekNounOrAdjective;
                         }
                         else if (curState.Equals(states.SeekNoun))
                         {
@@ -306,6 +346,29 @@ namespace BotLanguage
                                     {
                                         seekNPAfterVerb = true;
                                     }
+                                }
+                            }
+                            else if(curState.Equals(states.SeekNounOrAdjective))
+                            {
+                                if(state.GetType().Equals(new Noun().GetType()))
+                                {
+                                    curState = states.SeekPrepositionOrVerb;
+                                    if (curCount != wordCount - 1)
+                                    {
+                                        seekNPAfterPrep = true;
+                                    }
+                                    else
+                                    {
+                                        seekNPAfterPrep = false;
+                                    }
+                                    if (seekNPAfterVerb)
+                                    {
+                                        seekNPAfterVerb = false;
+                                    }
+                                }
+                                else if(state.GetType().Equals(new Adjective().GetType()))
+                                {
+                                    curState = states.SeekNoun;
                                 }
                             }
                         }
