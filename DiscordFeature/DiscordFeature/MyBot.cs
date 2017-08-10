@@ -42,6 +42,7 @@ namespace DiscordFeature
             RegisterImages();
             RegisterPurgeCommand();
             RegisterEcho();
+            ProcessSentence();
             discord.ExecuteAndWait(async () =>
             {
                 await discord.Connect("MzQ0MTQzOTEyNDEzNDI5NzYx.DGtyIA.y_wBcXzuLsyMEk7utz5awPyz41Y", TokenType.Bot);
@@ -51,7 +52,18 @@ namespace DiscordFeature
 
         private void ProcessSentence()
         {
-
+            bp.ClearPrevious();
+            commands.CreateCommand("talk").Parameter("phrase", ParameterType.Multiple).Do(async (e) =>
+            {
+                int maxArgs = e.Args.Count();
+                String fullResponse = "";
+                for (int i = 0; i < maxArgs; i++)
+                {
+                    fullResponse = fullResponse + " " + e.GetArg(i);
+                }
+                string response = bp.StartProcess(fullResponse);
+                await e.Channel.SendMessage(response);
+            });
         }
 
         private void RegisterImages()

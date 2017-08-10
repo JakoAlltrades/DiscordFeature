@@ -75,18 +75,28 @@ namespace BotLanguage
                 return newStack;
             }
 
-            public void StartProcess(string phrase)
+            public string StartProcess(string phrase)
             {
                 phrase = phrase.ToLower();
                 enteredPhrase = phrase.Split(' ').ToList();
                 modPhrase = enteredPhrase;
                 wordCount = enteredPhrase.Count;
                 StartMachineProcess();
+                ClearPrevious();
                 if (returnPhrase != null)
                 {
-                    Console.WriteLine(returnPhrase);
+                    //Console.WriteLine(returnPhrase);
                 }
+                return returnPhrase;
             }
+
+        public void ClearPrevious()
+        {
+            sentenceFound = false;
+            curState = states.SeekArticle;
+            stack = new List<GrammarRule>();
+            sentence = null;
+        }
 
             private bool CheckIfSucessfulStack(string stackString)
             {
@@ -376,13 +386,21 @@ namespace BotLanguage
                 }
             }
 
-            private string GetGenericPhrase()
+        private string GetGenericPhrase()
+        {
+            string phrase = null;
+            if (previousPhrase.Count == 0)
             {
-                string phrase = null;
                 Random r = new Random();
                 int rng = r.Next(genPhrases.Count);
                 phrase = genPhrases.ElementAt(rng);
-                return phrase;
             }
+            else
+            {
+                phrase = generateLeadingPhrase() + previousPhrase.Last();
+                previousPhrase.RemoveAt(previousPhrase.Count - 1);
+            }
+            return phrase;
         }
+    }
     }
