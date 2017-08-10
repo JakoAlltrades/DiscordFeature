@@ -14,8 +14,15 @@ namespace DiscordFeature
         DiscordClient discord;
         CommandService commands;
         BotProcessor bp = new BotProcessor();
+        List<string> danks;
         public MyBot()
         {
+            danks = new List<string>();
+            danks.Add("\\Memes\\f60b0f08fb9fac8319e275e31fc7da55bd021ec2a6e343edf9ffcf7642934020_1.jpg");
+            danks.Add("\\Memes\\image1.jpg");
+            danks.Add("\\Memes\\image2.jpg");
+            danks.Add("\\Memes\\image.jpg");
+            danks.Add("\\Memes\\image.png");
             discord = new DiscordClient(x =>
             {
                 x.LogLevel = LogSeverity.Info;
@@ -41,43 +48,19 @@ namespace DiscordFeature
         }
         private void RegisterImages()
         {
-            String random = RandomImage();
              
             commands.CreateCommand("dank").Do(async (e) =>
             {
-                await e.Channel.SendFile(random);
+                Random rand = new Random();
+                int randNum = rand.Next(0, 5);
+                string currentDir = Environment.CurrentDirectory;
+                string dankPost = danks.ElementAt(randNum);
+                currentDir = currentDir.Replace("\\bin\\Debug",dankPost);
+                currentDir = currentDir.Replace("'.","");
+                await e.Channel.SendFile(currentDir);
             });
         }
-        private String RandomImage()
-        {
-            String path = "";
-            Random rand = new Random();
-            string currentDir = Environment.CurrentDirectory;
-            int randNum = rand.Next(0,5);
-            switch (randNum)
-            {
-                case 0:
-                    path =currentDir+"\\Memes\\f60b0f08fb9fac8319e275e31fc7da55bd021ec2a6e343edf9ffcf7642934020_1.jpg";
-                    break; 
-                case 1:
-                    path = currentDir +"\\Memes\\image(1).jpg";
-                    break;
-                case 2:
-                    path = currentDir + "\\Memes\\image(2).jpg";
-                    break;
-                case 3:
-                    path = currentDir + "\\Memes\\image.jpg";
-                    break;
-                case 4:
-                    path = currentDir + "\\Memes\\image.png";
-                    break;
-                default:
-                    Console.WriteLine("Broke asf");
-                    break;
-            }
-
-            return path;
-        }
+     
 
         private void Log(object sender,LogMessageEventArgs e)
         {
