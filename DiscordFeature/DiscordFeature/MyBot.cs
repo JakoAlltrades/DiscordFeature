@@ -40,6 +40,8 @@ namespace DiscordFeature
                    await e.Channel.SendMessage("Suck it fagot");
                 });
             RegisterImages();
+            RegisterPurgeCommand();
+            RegisterEcho();
             discord.ExecuteAndWait(async () =>
             {
                 await discord.Connect("MzQ0MTQzOTEyNDEzNDI5NzYx.DGtyIA.y_wBcXzuLsyMEk7utz5awPyz41Y", TokenType.Bot);
@@ -66,8 +68,29 @@ namespace DiscordFeature
                 await e.Channel.SendFile(currentDir);
             });
         }
-     
-
+        private  void RegisterPurgeCommand()
+        {
+            commands.CreateCommand("purge").Do(async (e) =>
+            {
+                Message[] messages;
+                messages = await e.Channel.DownloadMessages(100);
+               await e.Channel.DeleteMessages(messages);
+            });
+        }
+        private void RegisterEcho()
+        {
+            commands.CreateCommand("echo").Parameter("phrase",ParameterType.Multiple).Do(async (e) =>
+            {
+                int maxArgs =  e.Args.Count();
+                String fullResponse = "";
+                for(int i = 0; i < maxArgs; i++)
+                {
+                    fullResponse = fullResponse +" "+ e.GetArg(i);
+                }
+                await e.Channel.SendMessage(fullResponse);
+           
+            });
+        }
         private void Log(object sender,LogMessageEventArgs e)
         {
             Console.WriteLine(e.Message);
