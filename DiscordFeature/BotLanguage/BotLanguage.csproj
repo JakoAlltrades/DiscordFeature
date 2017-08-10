@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotProcessor.cs" />
+    <Compile Include="Grammars\Adjective.cs" />
     <Compile Include="Grammars\Article.cs" />
     <Compile Include="Grammars\GrammarRule.cs" />
     <Compile Include="Grammars\Noun.cs" />

@@ -46,6 +46,12 @@ namespace DiscordFeature
             });
             
         }
+
+        private void ProcessSentence()
+        {
+
+        }
+
         private void RegisterImages()
         {
              

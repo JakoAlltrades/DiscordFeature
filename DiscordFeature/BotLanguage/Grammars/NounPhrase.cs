@@ -13,6 +13,8 @@ namespace BotLanguage.Grammars
             possibleWords = null;
             grammarComposition.Add("Article Noun Preposition NounPhrase");
             grammarComposition.Add("Article Noun");
+            grammarComposition.Add("Article Adjective Noun Preposition NounPhrase");
+            grammarComposition.Add("Article Adjective Noun");
         }
 
         public override bool ProcessComponentsIntoGrammar(string stackString)
