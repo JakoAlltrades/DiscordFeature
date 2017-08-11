@@ -93,10 +93,14 @@ namespace DiscordFeature
         }
         private  void RegisterPurgeCommand()
         {
-            commands.CreateCommand("purge").Do(async (e) =>
+            commands.CreateCommand("purge").Parameter("phrase", ParameterType.Multiple).Do(async (e) =>
             {
                 Message[] messages;
-                messages = await e.Channel.DownloadMessages(100);
+                String  num = e.GetArg(0);
+                int numin = Int32.Parse(num);
+                Console.WriteLine(num);
+                Console.WriteLine(numin);
+                messages = await e.Channel.DownloadMessages(numin);
                await e.Channel.DeleteMessages(messages);
             });
         }
