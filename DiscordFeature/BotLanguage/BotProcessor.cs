@@ -12,8 +12,8 @@ namespace BotLanguage
         List<string> enteredPhrase;
         List<string> modPhrase;
         Sentence sentence = null;
-        List<GrammarRule> stack = new List<GrammarRule>();
-        List<string> genPhrases = new List<string>();
+         List<GrammarRule> stack = new List<GrammarRule>();
+            List<string> genPhrases = new List<string>();
             List<string> previousPhrase = new List<string>();
             string returnPhrase = null;
             bool sentenceFound = false;
@@ -47,7 +47,7 @@ namespace BotLanguage
                 genPhrases.Add("Do you enjoy dealing with your problems?");
                 genPhrases.Add("Yeah, do you like that?");
                 genPhrases.Add("What a weather are we are having?");
-            genPhrases.Add("Wow, that sounds interesting. Elobrate.");
+                genPhrases.Add("Wow, that sounds interesting. Elobrate.");
             }
 
             public string GenerateStackString()
@@ -80,7 +80,7 @@ namespace BotLanguage
 
             public string StartProcess(string phrase)
             {
-                phrase = phrase.ToLower();
+                //phrase = phrase.ToLower();
                 enteredPhrase = phrase.Split(' ').ToList();
                 modPhrase = enteredPhrase;
                 wordCount = enteredPhrase.Count;

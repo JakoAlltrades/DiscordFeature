@@ -8,7 +8,6 @@ namespace BotLanguage.Grammars
 {
     public class Sentence : GrammarRule
     {
-        string sentance = null;
         public Sentence()
         {
             grammarComposition.Add("NounPhrase VerbPhrase");

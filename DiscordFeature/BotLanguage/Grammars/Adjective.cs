@@ -28,6 +28,8 @@ namespace BotLanguage.Grammars
             possibleWords.Add("fearful");
             possibleWords.Add("scared");
             possibleWords.Add("honest");
+            possibleWords.Add("dirty");
+            possibleWords.Add("smelly");
         }
 
         public override bool ProcessComponentsIntoGrammar(string stackString)

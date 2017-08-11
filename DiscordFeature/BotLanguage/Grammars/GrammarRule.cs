@@ -25,6 +25,17 @@ namespace BotLanguage.Grammars
             }
             return isGrammar;
         }
+
+        public virtual void AddGrammarToCompositions(string grammarRule)
+        {
+            grammarComposition.Add(grammarRule);
+        }
+
+        public virtual void AddWordToPossibleWords(string word)
+        {
+            possibleWords.Add(word);
+        }
+
         public abstract bool ProcessComponentsIntoGrammar(string stackString);//possibly take in the current stack 
         public virtual List<GrammarRule> GenerateWords()
         {

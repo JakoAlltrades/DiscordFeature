@@ -21,6 +21,15 @@ namespace BotLanguage.Grammars
             possibleWords.Add("bird");
             possibleWords.Add("sky");
             possibleWords.Add("sea");
+            possibleWords.Add("John");
+            possibleWords.Add("Matt");
+            possibleWords.Add("Brandon");
+            possibleWords.Add("Biscut");
+            possibleWords.Add("baby");
+            possibleWords.Add("oil");
+            possibleWords.Add("baby-oil");
+            possibleWords.Add("daddy");
+            possibleWords.Add("tortilla");
         }
 
         public override bool ProcessComponentsIntoGrammar(string stackString)

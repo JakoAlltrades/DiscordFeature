@@ -14,6 +14,7 @@ namespace BotLanguage.Grammars
             possibleWords.Add("after");
             possibleWords.Add("beside");
             possibleWords.Add("over");
+            possibleWords.Add("and");
         }
 
         public override bool ProcessComponentsIntoGrammar(string stackString)
