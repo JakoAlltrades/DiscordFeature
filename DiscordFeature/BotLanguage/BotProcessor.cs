@@ -42,10 +42,10 @@ namespace BotLanguage
                 enteredPhrase = null;
                 modPhrase = null;
                 curState = states.SeekArticle;
-                genPhrases.Add("What great weather!");
-                genPhrases.Add("Tell me about yourself");
-                genPhrases.Add("What do you like to do?");
-                genPhrases.Add("What makes you sad?");
+                genPhrases.Add("Does this have signicficance to you?");
+                genPhrases.Add("Why do you do yourself");
+                genPhrases.Add("Do you enjoy dealing with your problems?");
+                genPhrases.Add("Yeah, do you like that?");
             }
 
             public string GenerateStackString()
