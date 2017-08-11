@@ -27,7 +27,7 @@ namespace DiscordFeature
             danks.Add("\\Memes\\image.jpg");
             danks.Add("\\Memes\\image.png");
             helpList.Add("echo");
-           // helpList.Add("talk");
+            helpList.Add("talk");
             helpList.Add("Slut");
             helpList.Add("purge");
             helpList.Add("dank");
@@ -141,7 +141,7 @@ namespace DiscordFeature
                 currentDir = currentDir.Replace("\\bin\\Debug", dankPost);
                 Console.WriteLine("In hey");
                 await e.Channel.JoinAudio();
-                ///await e.Channel.SendMessage(currentDir);
+                await e.Channel.SendMessage(currentDir);
                 
 
             });
