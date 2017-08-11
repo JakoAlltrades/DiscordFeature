@@ -43,9 +43,11 @@ namespace BotLanguage
                 modPhrase = null;
                 curState = states.SeekArticle;
                 genPhrases.Add("Does this have signicficance to you?");
-                genPhrases.Add("Why do you do yourself");
+                genPhrases.Add("Why do you do this to yourself?");
                 genPhrases.Add("Do you enjoy dealing with your problems?");
                 genPhrases.Add("Yeah, do you like that?");
+                genPhrases.Add("What a weather are we are having?");
+            genPhrases.Add("Wow, that sounds interesting. Elobrate.");
             }
 
             public string GenerateStackString()
