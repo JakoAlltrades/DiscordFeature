@@ -25,36 +25,6 @@ namespace BotLanguage.Grammars
             return succsess;
         }
 
-        public string GenerateSenteance()
-        {
-            List<GrammarRule> words = GenerateWords();
-            Dictionary<string, int> WordTypeCount = GenerateWordCount(words);
-            sentance = generateLeadingPhrase();
-            int length = 0;
-            foreach (GrammarRule rule in words)
-            {
-                if (rule.GetType().Equals(new Verb().GetType()))
-                {
-                    sentance += rule.word.Substring(0, rule.word.Length - 1) + " ";
-                }
-                else
-                {
-                    sentance += rule.word + " ";
-                }
-                length = sentance.Length;
-            }
-            sentance = sentance.Substring(0, length - 1);
-            sentance += "?";
-            return sentance;
-        }
-
-        private string generateLeadingPhrase()
-        {
-            string[] leadPhrases = { "Who does ", "Where did ", "How did ", "When did " };
-            Random r = new Random();
-            return leadPhrases[r.Next(leadPhrases.Length)];
-        }
-
         private Dictionary<string, int> GenerateWordCount(List<GrammarRule> words)
         {
             Dictionary<string, int> wordCount = new Dictionary<string, int>();

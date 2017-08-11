@@ -31,7 +31,7 @@ namespace BotLanguage.Grammars
             List<GrammarRule> generateWords = new List<GrammarRule>();
             for (int j = 0; j < components.Count; j++)
             {
-                if (components.ElementAt(j).GetType().Equals(new Article().GetType()) || components.ElementAt(j).GetType().Equals(new Noun().GetType()) || components.ElementAt(j).GetType().Equals(new Verb().GetType()) || components.ElementAt(j).GetType().Equals(new Preposition().GetType()))
+                if (components.ElementAt(j).GetType().Equals(new Article().GetType()) || components.ElementAt(j).GetType().Equals(new Noun().GetType()) || components.ElementAt(j).GetType().Equals(new Verb().GetType()) || components.ElementAt(j).GetType().Equals(new Preposition().GetType()) || components.ElementAt(j).GetType().Equals(new Adjective().GetType()))
                 {
                     generateWords.Add(components[j]);
                 }

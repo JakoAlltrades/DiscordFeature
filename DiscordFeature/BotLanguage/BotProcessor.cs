@@ -9,11 +9,12 @@ namespace BotLanguage
 {
     public class BotProcessor
     {
-            List<string> enteredPhrase;
-            List<string> modPhrase;
-            Sentence sentence = null;
-            List<GrammarRule> stack = new List<GrammarRule>();
-            List<string> genPhrases = new List<string>();
+        List<string> enteredPhrase;
+        List<string> modPhrase;
+        Sentence sentence = null;
+        List<GrammarRule> stack = new List<GrammarRule>();
+        List<string> genPhrases = new List<string>();
+            List<string> previousPhrase = new List<string>();
             string returnPhrase = null;
             bool sentenceFound = false;
             Enum curState;
@@ -25,10 +26,12 @@ namespace BotLanguage
             enum states
             {
                 SeekArticle,
+                SeekNounOrAdjective,
                 SeekNoun,
                 SeekPrepositionOrVerb,
                 SeekArticleOrNull,
                 SeekVPNoun,
+                SeekVPNounOrAdjective,
                 SeekVPPrep
             }
 
@@ -73,18 +76,28 @@ namespace BotLanguage
                 return newStack;
             }
 
-            public void StartProcess(string phrase)
+            public string StartProcess(string phrase)
             {
                 phrase = phrase.ToLower();
                 enteredPhrase = phrase.Split(' ').ToList();
                 modPhrase = enteredPhrase;
                 wordCount = enteredPhrase.Count;
                 StartMachineProcess();
+                ClearPrevious();
                 if (returnPhrase != null)
                 {
-                    //return the phrase to print in chat
+                    //Console.WriteLine(returnPhrase);
                 }
+                return returnPhrase;
             }
+
+        public void ClearPrevious()
+        {
+            sentenceFound = false;
+            curState = states.SeekArticle;
+            stack = new List<GrammarRule>();
+            sentence = null;
+        }
 
             private bool CheckIfSucessfulStack(string stackString)
             {
@@ -178,7 +191,7 @@ namespace BotLanguage
                 }
                 if (sentenceFound)
                 {
-                    returnPhrase = sentence.GenerateSenteance();
+                    returnPhrase = GenerateSenteance(sentence);
                 }
                 else
                 {
@@ -187,8 +200,40 @@ namespace BotLanguage
                 PrintReturnPhrase();
             }
 
+        private string GenerateSenteance(Sentence sentence)
+        {
+            List<GrammarRule> words = sentence.GenerateWords();
+            //Dictionary<string, int> WordTypeCount = sentence.GenerateWordCount(words);
+            string returnSentence = generateLeadingPhrase();
+            string wordsPassed = "";
+            int length = 0;
+            foreach (GrammarRule rule in words)
+            {
+                if (rule.GetType().Equals(new Verb().GetType()))
+                {
+                    wordsPassed += rule.word.Substring(0, rule.word.Length - 1) + " ";
+                }
+                else
+                {
+                    wordsPassed += rule.word + " ";
+                }
+                length = wordsPassed.Length;
+            }
+            wordsPassed = wordsPassed.Substring(0, length - 1);
+            wordsPassed += "?";
+            previousPhrase.Add(wordsPassed);
+            returnSentence += wordsPassed;
+            return returnSentence;
+        }
 
-            private void PrintReturnPhrase()
+        private string generateLeadingPhrase()
+        {
+            string[] leadPhrases = { "Who does ", "Where did ", "How did ", "When did " };
+            Random r = new Random();
+            return leadPhrases[r.Next(leadPhrases.Length)];
+        }
+
+        private void PrintReturnPhrase()
             {
                 string phrase = "";
                 if (returnPhrase != null)
@@ -213,6 +258,12 @@ namespace BotLanguage
                 {
                     state = new Article();
                 }
+                else if(curState.Equals(states.SeekNounOrAdjective))
+                {
+                    runTimes = 2;
+                    checkList.Add(new Noun());
+                    checkList.Add(new Adjective());
+                }
                 else if (curState.Equals(states.SeekArticleOrNull))
                 {
                     state = new Article();
@@ -231,6 +282,12 @@ namespace BotLanguage
                 {
                     state = new Noun();
                 }
+                else if(curState.Equals(states.SeekVPNounOrAdjective))
+                {
+                    runTimes = 2;
+                    checkList.Add(new Noun());
+                    checkList.Add(new Adjective());
+                }
                 else if (curState.Equals(states.SeekVPPrep))
                 {
                     state = new Preposition();
@@ -243,7 +300,7 @@ namespace BotLanguage
                         stack.Add(state);
                         if (curState.Equals(states.SeekArticle))
                         {
-                            curState = states.SeekNoun;
+                            curState = states.SeekNounOrAdjective;
                         }
                         else if (curState.Equals(states.SeekNoun))
                         {
@@ -263,7 +320,7 @@ namespace BotLanguage
                         }
                         else if (curState.Equals(states.SeekArticleOrNull))
                         {
-                            curState = states.SeekVPNoun;
+                            curState = states.SeekVPNounOrAdjective;
                         }
                         else if (curState.Equals(states.SeekVPNoun))
                         {
@@ -308,18 +365,68 @@ namespace BotLanguage
                                     }
                                 }
                             }
+                            else if(curState.Equals(states.SeekNounOrAdjective))
+                            {
+                                if(state.GetType().Equals(new Noun().GetType()))
+                                {
+                                    curState = states.SeekPrepositionOrVerb;
+                                    if (curCount != wordCount - 1)
+                                    {
+                                        seekNPAfterPrep = true;
+                                    }
+                                    else
+                                    {
+                                        seekNPAfterPrep = false;
+                                    }
+                                    if (seekNPAfterVerb)
+                                    {
+                                        seekNPAfterVerb = false;
+                                    }
+                                }
+                                else if(state.GetType().Equals(new Adjective().GetType()))
+                                {
+                                    curState = states.SeekNoun;
+                                }
+                            }
+                            else if(curState.Equals(states.SeekVPNounOrAdjective))
+                            {
+                                if(state.GetType().Equals(new Noun().GetType()))
+                                {
+                                    curState = states.SeekVPPrep;
+                                    if (curCount != wordCount - 1)
+                                    {
+                                        seekNPAfterPrep = true;
+                                    }
+                                    else
+                                    {
+                                        seekNPAfterVerb = false;
+                                    }
+                                }
+                                else if(state.GetType().Equals(new Adjective().GetType()))
+                                {
+                                    curState = states.SeekVPNoun;
+                                }
+                            }
                         }
                     }
                 }
             }
 
-            private string GetGenericPhrase()
+        private string GetGenericPhrase()
+        {
+            string phrase = null;
+            if (previousPhrase.Count == 0)
             {
-                string phrase = null;
                 Random r = new Random();
                 int rng = r.Next(genPhrases.Count);
                 phrase = genPhrases.ElementAt(rng);
-                return phrase;
             }
+            else
+            {
+                phrase = generateLeadingPhrase() + previousPhrase.Last();
+                previousPhrase.RemoveAt(previousPhrase.Count - 1);
+            }
+            return phrase;
         }
+    }
     }
