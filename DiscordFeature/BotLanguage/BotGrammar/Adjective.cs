@@ -30,6 +30,7 @@ namespace BotLanguage.BotGrammar
             possibleWords.Add("honest");
             possibleWords.Add("dirty");
             possibleWords.Add("smelly");
+            possibleWords.Add("little");
         }
 
         public override bool ProcessComponentsIntoGrammar(string stackString)
