@@ -162,13 +162,15 @@ namespace DiscordFeature
                 var channel = server.FindChannels(e.User.VoiceChannel.ToString(),ChannelType.Voice).FirstOrDefault();
                 Console.WriteLine("server"+server);
                 Console.WriteLine("channel"+channel);
-                var discordVoice = await discord.GetService<AudioService>().Join(channel);
+                //var discordVoice =
+                //await audio.Join(channel);
                /// Byte[] bytes =File.ReadAllBytes(currentDir);
                /// await discordVoice.OutputStream.ReadAsync(bytes,0,bytes.Length);
                 
 
             });
         }
+       
         private void Log(object sender,LogMessageEventArgs e)
         {
             Console.WriteLine(e.Message);
