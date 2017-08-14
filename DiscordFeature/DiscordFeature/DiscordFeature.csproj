@@ -126,6 +126,7 @@
     <Content Include="bin\Debug\DiscordFeature.exe" />
     <Content Include="bin\Debug\DiscordFeature.pdb" />
     <Content Include="bin\Debug\DiscordFeature.vshost.exe" />
+    <Content Include="bin\Debug\libsodium.dll" />
     <Content Include="bin\Debug\Memes\f60b0f08fb9fac8319e275e31fc7da55bd021ec2a6e343edf9ffcf7642934020_1.jpg" />
     <Content Include="bin\Debug\Memes\image.jpg" />
     <Content Include="bin\Debug\Memes\image.png" />
@@ -138,6 +139,7 @@
     <Content Include="bin\Debug\Nito.AsyncEx.Enlightenment.dll" />
     <Content Include="bin\Debug\Nito.AsyncEx.Enlightenment.xml" />
     <Content Include="bin\Debug\Nito.AsyncEx.xml" />
+    <Content Include="bin\Debug\opus.dll" />
     <Content Include="bin\Debug\RestSharp.dll" />
     <Content Include="bin\Debug\RestSharp.xml" />
     <Content Include="bin\Debug\SoundMemes\heyyyy.mp3" />

@@ -153,14 +153,13 @@ namespace DiscordFeature
                 string currentDir = Environment.CurrentDirectory;
                 string dankPost = "\\SoundMemes\\heyyyy.mp3";
                 currentDir = currentDir.Replace("\\bin\\Debug", dankPost);
-                // await e.Server.CurrentUser.VoiceChannel.JoinAudio();
                 var server = discord.FindServers(e.Server.ToString()).FirstOrDefault();
                 var channel = server.FindChannels(e.User.VoiceChannel.ToString(),ChannelType.Voice).FirstOrDefault();
                 Console.WriteLine("server"+server);
                 Console.WriteLine("channel"+channel);
                 var discordVoice = await discord.GetService<AudioService>().Join(channel);
-                Byte[] bytes =File.ReadAllBytes(currentDir);
-                await discordVoice.OutputStream.ReadAsync(bytes,0,bytes.Length);
+               /// Byte[] bytes =File.ReadAllBytes(currentDir);
+               /// await discordVoice.OutputStream.ReadAsync(bytes,0,bytes.Length);
                 
 
             });
