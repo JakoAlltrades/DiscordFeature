@@ -30,7 +30,7 @@ namespace DiscordFeature
             danks.Add("\\Memes\\image.png");
             helpList.Add("echo");
             helpList.Add("talk");
-            helpList.Add("Slut");
+            helpList.Add("hi");
             helpList.Add("purge");
             helpList.Add("dank");
             discord = new DiscordClient(x =>
@@ -53,10 +53,10 @@ namespace DiscordFeature
             });
             commands = discord.GetService<CommandService>();
             audio = discord.GetService<AudioService>();
-            commands.CreateCommand("Slut")
+            commands.CreateCommand("hi")
                 .Do(async (e) =>
                 {
-                   await e.Channel.SendMessage("Suck it fagot");
+                   await e.Channel.SendMessage("Hello");
                 });
             RegisterImages();
             RegisterPurgeCommand();
