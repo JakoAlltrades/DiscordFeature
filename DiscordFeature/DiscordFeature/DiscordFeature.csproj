@@ -94,12 +94,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyBot.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <Fakes Include="Fakes\Discord.Net.fakes" />
+    <None Include="bin\Debug\Discord.Net.0.9.6.0.Fakes.fakesconfig" />
+    <None Include="bin\Debug\DiscordFeature.exe.config" />
+    <None Include="bin\Debug\DiscordFeature.vshost.exe.config" />
+    <None Include="bin\Debug\DiscordFeature.vshost.exe.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +116,36 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\BotLanguage.dll" />
+    <Content Include="bin\Debug\BotLanguage.pdb" />
+    <Content Include="bin\Debug\Discord.Net.0.9.6.0.Fakes.dll" />
+    <Content Include="bin\Debug\Discord.Net.0.9.6.0.Fakes.xml" />
+    <Content Include="bin\Debug\Discord.Net.Audio.dll" />
+    <Content Include="bin\Debug\Discord.Net.Commands.dll" />
+    <Content Include="bin\Debug\Discord.Net.dll" />
+    <Content Include="bin\Debug\DiscordFeature.exe" />
+    <Content Include="bin\Debug\DiscordFeature.pdb" />
+    <Content Include="bin\Debug\DiscordFeature.vshost.exe" />
+    <Content Include="bin\Debug\Memes\f60b0f08fb9fac8319e275e31fc7da55bd021ec2a6e343edf9ffcf7642934020_1.jpg" />
+    <Content Include="bin\Debug\Memes\image.jpg" />
+    <Content Include="bin\Debug\Memes\image.png" />
+    <Content Include="bin\Debug\Microsoft.QualityTools.Testing.Fakes.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\Nito.AsyncEx.Concurrent.dll" />
+    <Content Include="bin\Debug\Nito.AsyncEx.Concurrent.xml" />
+    <Content Include="bin\Debug\Nito.AsyncEx.dll" />
+    <Content Include="bin\Debug\Nito.AsyncEx.Enlightenment.dll" />
+    <Content Include="bin\Debug\Nito.AsyncEx.Enlightenment.xml" />
+    <Content Include="bin\Debug\Nito.AsyncEx.xml" />
+    <Content Include="bin\Debug\RestSharp.dll" />
+    <Content Include="bin\Debug\RestSharp.xml" />
+    <Content Include="bin\Debug\SoundMemes\heyyyy.mp3" />
+    <Content Include="bin\Debug\System.Collections.Immutable.dll" />
+    <Content Include="bin\Debug\System.Collections.Immutable.xml" />
+    <Content Include="bin\Debug\System.Interactive.Async.dll" />
+    <Content Include="bin\Debug\System.Interactive.Async.xml" />
+    <Content Include="bin\Debug\WebSocket4Net.dll" />
     <Content Include="Memes\f60b0f08fb9fac8319e275e31fc7da55bd021ec2a6e343edf9ffcf7642934020_1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -124,7 +161,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

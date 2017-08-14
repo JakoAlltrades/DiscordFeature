@@ -2,6 +2,7 @@
 using Discord.Commands;
 using Discord.Audio;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace DiscordFeature
     {
         DiscordClient discord;
         CommandService commands;
+        AudioService audio;
         List<string> helpList;
         BotProcessor bp = new BotProcessor();
         List<string> danks;
@@ -38,10 +40,19 @@ namespace DiscordFeature
             });
             discord.UsingCommands(x =>
             {
+               // x.CustomPrefixHandler = new Func<Message, int>(discord., 0);
                 x.PrefixChar = 'J';
                 x.AllowMentionPrefix = true;
             });
-           commands = discord.GetService<CommandService>();
+            discord.UsingAudio(x =>
+            {
+                // x.CustomPrefixHandler = new Func<Message, int>(discord., 0);
+                x.Bitrate = 64;
+                x.Channels = 3;
+                x.Build();
+            });
+            commands = discord.GetService<CommandService>();
+            audio = discord.GetService<AudioService>();
             commands.CreateCommand("Slut")
                 .Do(async (e) =>
                 {
@@ -57,7 +68,6 @@ namespace DiscordFeature
             {
                 await discord.Connect("MzQ0MTQzOTEyNDEzNDI5NzYx.DGtyIA.y_wBcXzuLsyMEk7utz5awPyz41Y", TokenType.Bot);
             });
-            
         }
 
         private void ProcessSentence()
@@ -143,9 +153,14 @@ namespace DiscordFeature
                 string currentDir = Environment.CurrentDirectory;
                 string dankPost = "\\SoundMemes\\heyyyy.mp3";
                 currentDir = currentDir.Replace("\\bin\\Debug", dankPost);
-                Console.WriteLine("In hey");
-                await e.Channel.JoinAudio();
-                await e.Channel.SendMessage(currentDir);
+                // await e.Server.CurrentUser.VoiceChannel.JoinAudio();
+                var server = discord.FindServers(e.Server.ToString()).FirstOrDefault();
+                var channel = server.FindChannels(e.User.VoiceChannel.ToString(),ChannelType.Voice).FirstOrDefault();
+                Console.WriteLine("server"+server);
+                Console.WriteLine("channel"+channel);
+                var discordVoice = await discord.GetService<AudioService>().Join(channel);
+                Byte[] bytes =File.ReadAllBytes(currentDir);
+                await discordVoice.OutputStream.ReadAsync(bytes,0,bytes.Length);
                 
 
             });
