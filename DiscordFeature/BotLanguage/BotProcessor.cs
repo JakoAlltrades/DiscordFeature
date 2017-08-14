@@ -1,4 +1,4 @@
-﻿using BotLanguage.Grammars;
+﻿using BotLanguage.BotGrammar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +26,7 @@ namespace BotLanguage
             enum states
             {
                 SeekArticle,
+                SeekArticleNounOrAdjective,
                 SeekNounOrAdjective,
                 SeekNoun,
                 SeekPrepositionOrVerb,
@@ -41,7 +42,7 @@ namespace BotLanguage
             {
                 enteredPhrase = null;
                 modPhrase = null;
-                curState = states.SeekArticle;
+                curState = states.SeekArticleNounOrAdjective;
                 genPhrases.Add("Does this have signicficance to you?");
                 genPhrases.Add("Why do you do this to yourself?");
                 genPhrases.Add("Do you enjoy dealing with your problems?");
@@ -96,7 +97,7 @@ namespace BotLanguage
         public void ClearPrevious()
         {
             sentenceFound = false;
-            curState = states.SeekArticle;
+            curState = states.SeekArticleNounOrAdjective;
             stack = new List<GrammarRule>();
             sentence = null;
         }
@@ -128,7 +129,7 @@ namespace BotLanguage
                         newStack = GenerateStackString();
                         changedStack = true;
                     }
-                    else if (new VerbPhrase().ProcessComponentsIntoGrammar(newStack) && !seekNPAfterVerb)
+                    else if (!seekNPAfterVerb && new VerbPhrase().ProcessComponentsIntoGrammar(newStack))
                     {
                         RemoveGrammarCompostionFromStack(newStack, new VerbPhrase());
                         newStack = GenerateStackString();
@@ -230,7 +231,7 @@ namespace BotLanguage
 
         private string generateLeadingPhrase()
         {
-            string[] leadPhrases = { "Who does ", "Where did ", "How did ", "When did " };
+            string[] leadPhrases = { "Who does ", "Where did ", "How did ", "When did ", "What does " };
             Random r = new Random();
             return leadPhrases[r.Next(leadPhrases.Length)];
         }
@@ -259,6 +260,13 @@ namespace BotLanguage
                 if (curState.Equals(states.SeekArticle))
                 {
                     state = new Article();
+                }
+                else if(curState.Equals(states.SeekArticleNounOrAdjective))
+                {
+                    runTimes = 3;
+                    checkList.Add(new Article());
+                    checkList.Add(new Noun());
+                    checkList.Add(new Adjective());
                 }
                 else if(curState.Equals(states.SeekNounOrAdjective))
                 {
@@ -409,7 +417,34 @@ namespace BotLanguage
                                     curState = states.SeekVPNoun;
                                 }
                             }
+                        else if (curState.Equals(states.SeekArticleNounOrAdjective))
+                        {
+                            if (state.GetType().Equals(new Noun().GetType()))
+                            {
+                                curState = states.SeekPrepositionOrVerb;
+                                if (curCount != wordCount - 1)
+                                {
+                                    seekNPAfterPrep = true;
+                                }
+                                else
+                                {
+                                    seekNPAfterPrep = false;
+                                }
+                                if (seekNPAfterVerb)
+                                {
+                                    seekNPAfterVerb = false;
+                                }
+                            }
+                            else if (state.GetType().Equals(new Article().GetType()))
+                            {
+                                curState = states.SeekNounOrAdjective;
+                            }
+                            else if (state.GetType().Equals(new Adjective().GetType()))
+                            {
+                                curState = states.SeekNoun;
+                            }
                         }
+                    }
                     }
                 }
             }

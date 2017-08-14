@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BotLanguage.Grammars
+namespace BotLanguage.BotGrammar
 {
     public class Noun : GrammarRule
     {
@@ -30,6 +30,7 @@ namespace BotLanguage.Grammars
             possibleWords.Add("baby-oil");
             possibleWords.Add("daddy");
             possibleWords.Add("tortilla");
+            possibleWords.Add("legs");
         }
 
         public override bool ProcessComponentsIntoGrammar(string stackString)

@@ -37,7 +37,9 @@ namespace DiscordFeature
             {
                 x.LogLevel = LogSeverity.Info;
                 x.LogHandler = Log;
+                x.AppName = "JJSmalls";
             });
+            //Console.WriteLine(discord.CurrentUser.Name);
             discord.UsingCommands(x =>
             {
                // x.CustomPrefixHandler = new Func<Message, int>(discord., 0);
@@ -58,6 +60,8 @@ namespace DiscordFeature
                 {
                    await e.Channel.SendMessage("Hello");
                 });
+
+
             RegisterImages();
             RegisterPurgeCommand();
             RegisterEcho();
@@ -111,6 +115,7 @@ namespace DiscordFeature
                 Console.WriteLine(num);
                 Console.WriteLine(numin);
                 messages = await e.Channel.DownloadMessages(numin);
+                Console.WriteLine(messages[0].ToString());
                await e.Channel.DeleteMessages(messages);
             });
         }

@@ -41,15 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotProcessor.cs" />
-    <Compile Include="Grammars\Adjective.cs" />
-    <Compile Include="Grammars\Article.cs" />
-    <Compile Include="Grammars\GrammarRule.cs" />
-    <Compile Include="Grammars\Noun.cs" />
-    <Compile Include="Grammars\NounPhrase.cs" />
-    <Compile Include="Grammars\Preposition.cs" />
-    <Compile Include="Grammars\Sentence.cs" />
-    <Compile Include="Grammars\Verb.cs" />
-    <Compile Include="Grammars\VerbPhrase.cs" />
+    <Compile Include="BotGrammar\Adjective.cs" />
+    <Compile Include="BotGrammar\Article.cs" />
+    <Compile Include="BotGrammar\GrammarRule.cs" />
+    <Compile Include="BotGrammar\Noun.cs" />
+    <Compile Include="BotGrammar\NounPhrase.cs" />
+    <Compile Include="BotGrammar\Preposition.cs" />
+    <Compile Include="BotGrammar\Sentence.cs" />
+    <Compile Include="BotGrammar\Verb.cs" />
+    <Compile Include="BotGrammar\VerbPhrase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

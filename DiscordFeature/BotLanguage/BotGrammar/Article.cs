@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BotLanguage.Grammars
+namespace BotLanguage.BotGrammar
 {
     public class Article : GrammarRule
     {
