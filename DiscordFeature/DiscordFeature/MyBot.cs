@@ -23,10 +23,10 @@ namespace DiscordFeature
         {
             danks = new List<string>();
             helpList = new List<string>();
-            danks.Add("\\Memes\\f60b0f08fb9fac8319e275e31fc7da55bd021ec2a6e343edf9ffcf7642934020_1.jpg");
-            danks.Add("\\Memes\\image1.jpg");
-            danks.Add("\\Memes\\image2.jpg");
-            danks.Add("\\Memes\\image.jpg");
+            //danks.Add("\\Memes\\f60b0f08fb9fac8319e275e31fc7da55bd021ec2a6e343edf9ffcf7642934020_1.jpg");
+            //danks.Add("\\Memes\\image1.jpg");
+            //danks.Add("\\Memes\\image2.jpg");
+            //danks.Add("\\Memes\\image.jpg");
             danks.Add("\\Memes\\image.png");
             helpList.Add("echo");
             helpList.Add("talk");
@@ -96,10 +96,10 @@ namespace DiscordFeature
              
             commands.CreateCommand("dank").Do(async (e) =>
             {
-                Random rand = new Random();
-                int randNum = rand.Next(0, 5);
+               // Random rand = new Random();
+                //int randNum = rand.Next(0, 5);
                 string currentDir = Environment.CurrentDirectory;
-                string dankPost = danks.ElementAt(randNum);
+                string dankPost = danks.ElementAt(0);
                 currentDir = currentDir.Replace("\\bin\\Debug",dankPost);
                 currentDir = currentDir.Replace("'.","");
                 await e.Channel.SendFile(currentDir);
